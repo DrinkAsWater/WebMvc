@@ -1,0 +1,31 @@
+﻿@model IEnumerable<BookViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2 class="mb-3">書籍清單</h2>
+<p class="text-muted">目前時間：@ViewBag.CurrentTime.ToString("yyyy-MM-dd HH:mm:ss")</p>
+
+<!-- 新增書籍按鈕 -->
+<a asp-controller="Books" asp-action="Create" class="btn btn-success mb-3">新增書籍</a>
+
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Id</td>
+                <td>@book.Title</td>
+                <td>@book.Price</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
