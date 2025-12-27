@@ -6,6 +6,12 @@ namespace WebMvc.Interface
     {
         public List<BookViewModel> GetAllBooks();
 
-        public void addBooks(BookViewModel book);
+         void addBooks(BookViewModel book);
+
+        BookViewModel GetBook(int id);
+
+        void UpdateBook(BookViewModel book);
+
+        void deleteBook(int id);
     }
 }

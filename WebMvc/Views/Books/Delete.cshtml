@@ -1,0 +1,32 @@
+﻿@model BookViewModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.ErrorMessage
+    </div>
+}
+else
+{
+    <form asp-controller="Books" asp-action="delete" method="post" class="needs-validation" novalidate>
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Title" />
+        <input type="hidden"asp-for="Price" />
+        <div class="form-group">
+            <label asp-for="Title"></label>
+            <label>@Model.Title</label>
+        </div>
+        <div class="form-group">
+            <label asp-for="Price"></label>
+            <label>@Model.Price</label>
+        </div>
+        <button type="submit" class="btn btn-danger">確認刪除</button>
+        <a asp-controller="Books" asp-action="Index" class="btn btn-secondary">取消</a>
+    </form>
+}
+

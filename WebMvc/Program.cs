@@ -1,3 +1,4 @@
+using WebMvc.Filters;
 using WebMvc.Interface;
 using WebMvc.Models;
 
@@ -13,8 +14,10 @@ namespace WebMvc
             //  options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
-            builder.Services.AddSingleton<IBookSerivce,BookService2>();
+            builder.Services.AddControllersWithViews(); 
+            builder.Services.AddSingleton<IBookSerivce,BookService>();
+            builder.Services.AddScoped<AuthorizationFilter>();
+
 
             var app = builder.Build();
 

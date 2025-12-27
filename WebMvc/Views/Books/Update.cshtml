@@ -1,0 +1,36 @@
+﻿@model BookViewModel
+@{
+    ViewData["Title"] = "Update";
+}
+
+<h1>Update</h1>
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.ErrorMessage
+    </div>
+}
+else
+{
+    <form asp-controller="Books" asp-action="Update" method="post" class="needs-validation" novalidate>
+        @Html.AntiForgeryToken()
+
+        <!-- Hidden Id，必須有，Update 才能找到對應書籍 -->
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label"></label>
+            <input asp-for="Title" class="form-control" placeholder="請輸入書本名稱" required />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Price" class="form-label"></label>
+            <input asp-for="Price" class="form-control" type="number" min="0" placeholder="請輸入書本價格" required />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">更新</button>
+    </form>
+}

@@ -4,10 +4,25 @@
 }
 
 <h2 class="mb-3">書籍清單</h2>
-<p class="text-muted">目前時間：@ViewBag.CurrentTime.ToString("yyyy-MM-dd HH:mm:ss")</p>
+<h3>@ViewBag.Title</h3>
+<h3>@ViewData["Description"]</h3>
+<h5>@ViewBag.Today</h5>
 
-<!-- 新增書籍按鈕 -->
-<a asp-controller="Books" asp-action="Create" class="btn btn-success mb-3">新增書籍</a>
+
+<div class="d-flex mb-3 align-items-center">
+    <form  asp-action="Index" method="post" class="d-flex me-2">
+        @Html.AntiForgeryToken()
+        <input type="text" name="id" value="@(ViewBag.Id ?? "")" class="form-control me-2" />
+        <button type="submit" class="btn btn-primary">搜尋</button>
+    </form>
+
+    <a asp-controller="Books" asp-action="Create" class="btn btn-success">新增書籍</a>
+</div>
+
+
+
+<!-- 分隔線 -->
+<hr class="my-3">
 
 <table class="table table-bordered table-striped table-hover">
     <thead class="table-dark">
@@ -15,6 +30,7 @@
             <th>Id</th>
             <th>Title</th>
             <th>Price</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -24,8 +40,24 @@
                 <td>@book.Id</td>
                 <td>@book.Title</td>
                 <td>@book.Price</td>
+                <td>
+                    <!-- Edit / Update 按鈕 -->
+                    <a asp-controller="Books" asp-action="Update" asp-route-id="@book.Id" class="btn btn-sm btn-primary pe-3">
+                        編輯
+                    </a>
+
+                    <!-- 垂直分隔線 -->
+                    <span class="vr mx-2"></span>
+
+                    <!-- Delete 按鈕 -->
+                    <form asp-controller="Books" asp-action="Delete" asp-route-id="@book.Id" method="post" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('確定要刪除這本書嗎？');">
+                            刪除
+                        </button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>
 </table>
-
